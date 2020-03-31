@@ -6,7 +6,8 @@ typedef struct LinkedList
     int data;
     struct LinkedList *next;
 }LinkedList;
-void interface()
+
+/*void interface()
 {
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("~~~~~~~~输入1  初始化链表~~~~~~\n");
@@ -21,13 +22,13 @@ void interface()
         printf("helll");break;
     default:
         printf("error");break;
-    }*/
-}
-void InitList(LinkedList *L, int n)
+    }
+}*/
+void InitList(LinkedList *L, int n)//初始化链表
 {
-    LinkedList *pre, *after;
+    LinkedList *pre, *after;//定义两个指针
     L = (LinkedList*)malloc(sizeof(LinkedList));
-    L->next = NULL;
+    L->next = NULL;//
     pre = L;
     for (int i=1;i<n;i++)
     {
@@ -53,7 +54,6 @@ void print(LinkedList *L)
 }
 int main()
 {
-
     LinkedList *L;
     //interface();
     InitList(L,3);
