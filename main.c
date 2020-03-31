@@ -25,26 +25,26 @@ void interface()
 }
 void InitList(LinkedList *L, int n)
 {
-    LinkedList *old, *new;
+    LinkedList *pre, *after;
     L = (LinkedList*)malloc(sizeof(LinkedList));
     L->next = NULL;
-    old = L;
+    pre = L;
     for (int i=1;i<n;i++)
     {
-        new = (LinkedList*)malloc(sizeof(LinkedList));
+        after = (LinkedList*)malloc(sizeof(LinkedList));
         printf("请输入数据：");
-        scanf("%d", &new->data);
-        new->next = NULL;
-        old->next=new;
-        old=old->next;
+        scanf("%d", &after->data);
+        after->next = NULL;
+        pre->next=after;
+        pre=pre->next;
     }
 }
 void print(LinkedList *L)
 {
     LinkedList *p;
     int count = 0;
-    p = L;
-    while(p != NULL)
+    p = L->next;
+    while (p!=NULL)
     {
         ++count;
         printf("第%d个节点数据为：%d",count,p->data);
