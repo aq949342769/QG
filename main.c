@@ -38,7 +38,7 @@ void InitList(int data)//初始化链表
         end->next = p;//尾部指向p开辟的节点
         end = p;
     }
-    printf("successful\n");
+    printf("successful！\n");
 }
 
 LinkedList* SearchList(int data)//搜索函数(指定数据)
@@ -59,17 +59,24 @@ LinkedList* SearchList(int data)//搜索函数(指定数据)
 
 void DestroyList()//清空链表
 {
-    LinkedList *p = head;
-    while (p != NULL)
+    
+    if (head == NULL)
     {
-        LinkedList *d = p;    
-        p = p->next;
-        free(d);
+        printf("链表是空的！\n");
+        return;
     }
+    LinkedList *p = head;
+        while (p != NULL)
+        {
+            LinkedList *d = p;    
+            p = p->next;
+            free(d);
+        }
     head = NULL;
     end  = NULL;
     printf("已经全部删除！！！\n");
-}
+}  
+
 
 void DeleteList(int data_p, int data_e)//删除指定节点
 {
@@ -154,7 +161,7 @@ void print()//遍历输出所有节点
 
 void InsertList(int q,int data)//从后插入节点
 {
-    if (head = NULL)
+    if (head == NULL)
     {
         printf("链表没有节点，请先输入数据\n");
         return;
@@ -183,10 +190,11 @@ void InsertList(int q,int data)//从后插入节点
 
 int main()
 {
+    interface();
     int input;
     while (1)
     {
-        interface();
+        
         printf("告诉我你想干嘛？\n");
         scanf("%d",&input);
         switch (input)
@@ -225,10 +233,10 @@ int main()
         case 5:{
             //从后插入节点，测试5
             int data,q;
-            printf("输入要在哪插入(链表数据)\n");
-            scanf("%d",&data);
-            printf("输入插入节点的数据\n");
-            scanf("%d", &q);
+            printf("输入待插入链表数据\n");
+            scanf("%d",&q);
+            printf("输入被插入节点的数据（插哪？）\n");
+            scanf("%d", &data);
             InsertList(q,data);
             break;
         }
