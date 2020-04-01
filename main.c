@@ -17,7 +17,7 @@ void interface()
     printf("~~~~~~~输入F4    查找节点~~~~~~\n");
     printf("~~~~~~~输入F5    插入节点~~~~~~\n");
     printf("~~~~~~~输入F6    删除节点~~~~~~\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("~~~~~~~输入F7    反转链表~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"); 
 }
@@ -185,6 +185,27 @@ void DeleteList(int data_p)//删除指定节点
     printf("successful!\n");   
 }
 
+void ReverseList()
+{
+    if (head == NULL)
+    {
+        printf("链表是空的！\n");
+        return;
+    }
+    LinkedList *pre = head;
+    LinkedList *cur = pre->next;
+    pre->next = NULL;
+    end = pre;
+    while(cur!= NULL)
+    {
+        LinkedList *temp = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = temp;   
+    }
+    head = pre;
+    printf("successful!\n");
+}
 
 int main()
 {
@@ -251,6 +272,11 @@ int main()
             DeleteList(data_p);
             break;
         }
+        case 7:{
+            //链表反转，测试7
+            ReverseList();
+            break;
+        }
         default:{
             printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
             break;}
@@ -258,4 +284,3 @@ int main()
     }   
     return 0;
 }
-123312312332
