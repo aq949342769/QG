@@ -16,7 +16,7 @@ void interface()
     printf("~~~~~~~输入F3    清空链表~~~~~~\n");
     printf("~~~~~~~输入F4    查找节点~~~~~~\n");
     printf("~~~~~~~输入F5    插入节点~~~~~~\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("~~~~~~~输入F6    删除节点~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"); 
@@ -41,20 +41,22 @@ void InitList(int data)//初始化链表
     printf("successful！\n");
 }
 
-LinkedList* SearchList(int data)//搜索函数(指定数据)
+void print()//遍历输出所有节点
 {
     LinkedList *p=head;
-    while(p!=NULL)
+    int count = 0;
+    if(p == NULL)
     {
-        if (data == p->data)
-        {
-            printf("查找成功,该节点地址为 %p\n",p);
-            return p;//返回指针地址返回指针地址
-        }
+        printf("链表是空的！！！\n");
+        return;
+    }
+    while (p != NULL)
+    {
+        ++count;
+        printf("第%d个节点数据为：%d\n",count,p->data);
         p=p->next;
     }
-    printf("没有这样的节点\n");
-    return NULL;
+    printf("\n");
 }
 
 void DestroyList()//清空链表
@@ -75,10 +77,52 @@ void DestroyList()//清空链表
     head = NULL;
     end  = NULL;
     printf("已经全部删除！！！\n");
-}  
+} 
 
+LinkedList* SearchList(int data)//搜索函数(指定数据)
+{
+    LinkedList *p=head;
+    while(p!=NULL)
+    {
+        if (data == p->data)
+        {
+            return p;//返回指针地址返回指针地址
+        }
+        p=p->next;
+    }
+    return NULL;
+}
 
-void DeleteList(int data_p, int data_e)//删除指定节点
+void InsertList(int q,int data)//从后插入节点
+{
+    if (head == NULL)
+    {
+        printf("链表没有节点，请先输入数据\n");
+        return;
+    }
+    LinkedList *p = SearchList(data);//创建搜索指针
+    if (p == NULL)
+    {
+        printf("没有该节点\n");
+        return;
+    }
+    LinkedList *temp = (LinkedList*)malloc(sizeof(LinkedList));
+    temp->data = q;
+    temp->next = NULL;
+    if (p == end)//如果找到的节点在尾部
+    {   
+        end->next = temp;
+              end = temp;
+    }
+    else//如果在中间（包含头部情况）
+    {
+       temp->next = p->next; //先连后面
+          p->next = temp;  //再连前面
+    }
+    printf("successful!\n");
+} 
+
+void DeleteList(int data_p)//删除指定节点
 {
     if (head == NULL)//如果链表为空
     {
@@ -141,53 +185,6 @@ void DeleteList(int data_p, int data_e)//删除指定节点
     printf("successful!\n");   
 }
 
-void print()//遍历输出所有节点
-{
-    LinkedList *p=head;
-    int count = 0;
-    if(p == NULL)
-    {
-        printf("链表是空的！！！\n");
-        return;
-    }
-    while (p != NULL)
-    {
-        ++count;
-        printf("第%d个节点数据为：%d\n",count,p->data);
-        p=p->next;
-    }
-    printf("\n");
-}
-
-void InsertList(int q,int data)//从后插入节点
-{
-    if (head == NULL)
-    {
-        printf("链表没有节点，请先输入数据\n");
-        return;
-    }
-    LinkedList *p = SearchList(data);//创建搜索指针
-    if (p == NULL)
-    {
-        printf("没有该节点\n");
-        return;
-    }
-    LinkedList *temp = (LinkedList*)malloc(sizeof(LinkedList));
-    temp->data = q;
-    temp->next = NULL;
-    if (p == end)//如果找到的节点在尾部
-    {   
-        end->next = temp;
-              end = temp;
-    }
-    else//如果在中间（包含头部情况）
-    {
-       temp->next = p->next; //先连后面
-          p->next = temp;  //再连前面
-    }
-    printf("successful!\n");
-}
-
 int main()
 {
     interface();
@@ -227,7 +224,10 @@ int main()
             int data;
             printf("请输入你要查找的数据：");
             scanf("%d", &data);
-            SearchList(data);
+            if(SearchList(data) != NULL)
+                printf("查找成功,该节点地址为 %p\n",SearchList(data));
+            else 
+                printf("不存在这样的节点");
             break;
         }
         case 5:{
@@ -238,6 +238,16 @@ int main()
             printf("输入被插入节点的数据（插哪？）\n");
             scanf("%d", &data);
             InsertList(q,data);
+            break;
+        }
+        case 6:{
+            //删除指定节点，测试6
+            int data_p, data_e;
+            printf("要删除的数据");
+            scanf("%d", &data_p);
+            /*printf("换成什么数据");
+            scanf("%d", &data_p);*/
+            DeleteList(data_p);
             break;
         }
         default:{
