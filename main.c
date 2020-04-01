@@ -185,6 +185,7 @@ void DeleteList(int data_p)//删除指定节点
     printf("successful!\n");   
 }
 
+
 int main()
 {
     interface();
