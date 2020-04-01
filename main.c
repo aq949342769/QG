@@ -11,13 +11,13 @@ LinkedList *end = NULL;
 void interface()
 {
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("~~~~~~~输入F1  初始化链表~~~~~~\n");
-    printf("~~~~~~~输入F2    输出链表~~~~~~\n");
-    printf("~~~~~~~输入F3    清空链表~~~~~~\n");
-    printf("~~~~~~~输入F4    查找节点~~~~~~\n");
-    printf("~~~~~~~输入F5    插入节点~~~~~~\n");
-    printf("~~~~~~~输入F6    删除节点~~~~~~\n");
-    printf("~~~~~~~输入F7    反转链表~~~~~~\n");
+    printf("~~~~~~~输入1  初始化链表~~~~~~~\n");
+    printf("~~~~~~~输入2    输出链表~~~~~~~\n");
+    printf("~~~~~~~输入3    清空链表~~~~~~~\n");
+    printf("~~~~~~~输入4    查找节点~~~~~~~\n");
+    printf("~~~~~~~输入5    插入节点~~~~~~~\n");
+    printf("~~~~~~~输入6    删除节点~~~~~~~\n");
+    printf("~~~~~~~输入7    反转链表~~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"); 
 }
@@ -215,18 +215,34 @@ int main()
     {
         
         printf("告诉我你想干嘛？\n");
-        scanf("%d",&input);
+        while(scanf("%d",&input) != 1)
+        {
+            fflush(stdin);
+            printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
+
+        }
         switch (input)
         {
         case 1:{
             //输入数据，测试1
             int n, data;
             printf("请输入数据需要多少个节点:");
-            scanf("%d",&n);
+            //scanf("%d",&n);
+            while(scanf("%d",&n) != 1)
+            {
+                fflush(stdin);
+                printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
+
+            }
             for(int i=0;i<n;i++)
             {
                 printf("请输入数据data:\n");    
-                scanf("%d",&data);  
+                //scanf("%d",&data);  
+                while(scanf("%d",&data) != 1)
+                {
+                    fflush(stdin);
+                    printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
+                }
                 InitList(data);
             }
             break;
@@ -245,7 +261,13 @@ int main()
             //查找指定节点，测试4
             int data;
             printf("请输入你要查找的数据：");
-            scanf("%d", &data);
+            //scanf("%d", &data);
+            while(scanf("%d",&data) != 1)
+            {
+            fflush(stdin);
+            printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
+
+            }
             if(SearchList(data) != NULL)
                 printf("查找成功,该节点地址为 %p\n",SearchList(data));
             else 
@@ -256,9 +278,21 @@ int main()
             //从后插入节点，测试5
             int data,q;
             printf("输入待插入链表数据\n");
-            scanf("%d",&q);
+            //scanf("%d",&q);
+            while(scanf("%d",&q) != 1)
+            {
+                fflush(stdin);
+                printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
+
+            }
             printf("输入被插入节点的数据（插哪？）\n");
-            scanf("%d", &data);
+            //scanf("%d", &data);
+            while(scanf("%d",&data) != 1)
+            {
+                fflush(stdin);
+                printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
+
+            }
             InsertList(q,data);
             break;
         }
@@ -266,7 +300,13 @@ int main()
             //删除指定节点，测试6
             int data_p, data_e;
             printf("要删除的数据");
-            scanf("%d", &data_p);
+            //scanf("%d", &data_p);
+            while(scanf("%d",&data_p) != 1)
+            {
+                fflush(stdin);
+                printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
+
+            }
             /*printf("换成什么数据");
             scanf("%d", &data_p);*/
             DeleteList(data_p);
@@ -278,7 +318,6 @@ int main()
             break;
         }
         default:{
-            printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
             break;}
         }
     }   
