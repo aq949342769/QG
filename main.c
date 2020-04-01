@@ -11,11 +11,11 @@ LinkedList *end = NULL;
 void interface()
 {
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("~~~~~~~~输入F1  初始化链表~~~~~~\n");
-    printf("~~~~~~~~输入F2    输出链表~~~~~~\n");
-    printf("~~~~~~~~输入F3    清空链表~~~~~~\n");
-    printf("~~~~~~~~输入F4    查找节点~~~~~~\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("~~~~~~~输入F1  初始化链表~~~~~~\n");
+    printf("~~~~~~~输入F2    输出链表~~~~~~\n");
+    printf("~~~~~~~输入F3    清空链表~~~~~~\n");
+    printf("~~~~~~~输入F4    查找节点~~~~~~\n");
+    printf("~~~~~~~输入F5    插入节点~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -48,16 +48,16 @@ LinkedList* SearchList(int data)//搜索函数(指定数据)
     {
         if (data == p->data)
         {
-            printf("查找成功,该节点地址为 %p",p);
+            printf("查找成功,该节点地址为 %p\n",p);
             return p;//返回指针地址返回指针地址
         }
         p=p->next;
     }
-    printf("没有这样的节点");
+    printf("没有这样的节点\n");
     return NULL;
 }
 
-void DestroyList(LinkedList *head)//清空链表
+void DestroyList()//清空链表
 {
     LinkedList *p = head;
     while (p != NULL)
@@ -68,6 +68,7 @@ void DestroyList(LinkedList *head)//清空链表
     }
     head = NULL;
     end  = NULL;
+    printf("已经全部删除！！！\n");
 }
 
 void DeleteList(int data_p, int data_e)//删除指定节点
@@ -129,36 +130,43 @@ void DeleteList(int data_p, int data_e)//删除指定节点
             Former->next = p->next;
             free(p);
         }   
-    }    
+    } 
+    printf("successful!\n");   
 }
 
 void print()//遍历输出所有节点
 {
     LinkedList *p=head;
     int count = 0;
+    if(p == NULL)
+    {
+        printf("链表是空的！！！\n");
+        return;
+    }
     while (p != NULL)
     {
         ++count;
-        printf("第%d个节点数据为：%d",count,p->data);
+        printf("第%d个节点数据为：%d\n",count,p->data);
         p=p->next;
     }
+    printf("\n");
 }
 
 void InsertList(int q,int data)//从后插入节点
 {
     if (head = NULL)
     {
-        printf("链表没有节点");
+        printf("链表没有节点，请先输入数据\n");
         return;
     }
-    LinkedList *p = SearchList(data);
+    LinkedList *p = SearchList(data);//创建搜索指针
     if (p == NULL)
     {
-        printf("没有该节点");
+        printf("没有该节点\n");
         return;
     }
     LinkedList *temp = (LinkedList*)malloc(sizeof(LinkedList));
-    temp->next = q;
+    temp->data = q;
     temp->next = NULL;
     if (p == end)//如果找到的节点在尾部
     {   
@@ -170,28 +178,64 @@ void InsertList(int q,int data)//从后插入节点
        temp->next = p->next; //先连后面
           p->next = temp;  //再连前面
     }
+    printf("successful!\n");
 }
 
 int main()
 {
-    int data;
-    //LinkedList *L;
-    interface();
-    int n,e;
-    //输入数据，测试1
-    printf("请输入数据需要多少个节点:");
-    scanf("%d",&n);
-    for(int i=0;i<n;i++)
+    int input;
+    while (1)
     {
-        printf("请输入数据data:\n");
-        scanf("%d",&data);
-        InitList(data);
-    }
-    //搜索数据，测试2
-    printf("enter e：");
-    scanf("%d",&e);
-    SearchList(e);
-
-    //print(L);
+        interface();
+        printf("告诉我你想干嘛？\n");
+        scanf("%d",&input);
+        switch (input)
+        {
+        case 1:{
+            //输入数据，测试1
+            int n, data;
+            printf("请输入数据需要多少个节点:");
+            scanf("%d",&n);
+            for(int i=0;i<n;i++)
+            {
+                printf("请输入数据data:\n");    
+                scanf("%d",&data);  
+                InitList(data);
+            }
+            break;
+        }
+        case 2:{
+            //遍历链表，测试2
+            print();
+            break;
+        }
+        case 3:{
+            //清空链表，测试3
+            DestroyList();
+            break;
+        }
+        case 4:{
+            //查找指定节点，测试4
+            int data;
+            printf("请输入你要查找的数据：");
+            scanf("%d", &data);
+            SearchList(data);
+            break;
+        }
+        case 5:{
+            //从后插入节点，测试5
+            int data,q;
+            printf("输入要在哪插入(链表数据)\n");
+            scanf("%d",&data);
+            printf("输入插入节点的数据\n");
+            scanf("%d", &q);
+            InsertList(q,data);
+            break;
+        }
+        default:{
+            printf("你的输入有误哦~小宝贝，请认真检查呢~~\n");
+            break;}
+        }
+    }   
     return 0;
 }
